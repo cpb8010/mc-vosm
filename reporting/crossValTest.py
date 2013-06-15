@@ -181,35 +181,35 @@ paramTypeDict = {
 # Everything below this line is for graphing
 # It can and should be changed depending on the needed views.
 
-# print("Summary Graphs");
-# #vosm_helper.SummaryGraphs(allFoldsDB,paramTypeDict,resultTypeDict) #This plots all possible combinations
+print("Summary Graphs");
+#vosm_helper.SummaryGraphs(allFoldsDB,paramTypeDict,resultTypeDict) #This plots all possible combinations
 summaryResultDict = {'avgDist':('Average Pt Distance','Euclidian distance in pixels')}
 summaryParamDict = {'testSet' : ('Test sets',test_groups)}
-# vosm_helper.SummaryGraphs(allFoldsDB,numFolds,summaryParamDict,summaryResultDict)
+vosm_helper.SummaryGraphs(allFoldsDB,numFolds,summaryParamDict,summaryResultDict)
     
-# print("Versus Graphs");
-# #vosm_helper.VersusGraphs(allFoldsDB,paramTypeDict,resultTypeDict) #This plots all possible combinations
+print("Versus Graphs");
+#vosm_helper.VersusGraphs(allFoldsDB,paramTypeDict,resultTypeDict) #This plots all possible combinations
 versusResultDict = {'avgDist':('Average Pt Distance','Euclidian distance in pixels')}
-# #Plots pairs of parameters against each other for every result specified
+#Plots pairs of parameters against each other for every result specified
 versusParamDict = {'testSet' : ('Test sets',test_groups), 'fitTech' : ('Fitting techniques',channelTypes)}
-# vosm_helper.VersusGraphs(allFoldsDB,numFolds,versusParamDict,versusResultDict)
+vosm_helper.VersusGraphs(allFoldsDB,numFolds,versusParamDict,versusResultDict)
  
-# print("All Points over Time Graph")
+print("All Points over Time Graph")
 graphDict = {'trainModel' : train_groups[0], 'locTech' : locationTypes[0], 'testSet' : test_groups[0], 'fitTech' : channelTypes[0]}
-#vosm_helper.AllPtsAvgTimeGraph(allFoldsDB,numFolds,landmarkList,graphDict,landmarkList) 
+vosm_helper.AllPtsAvgTimeGraph(allFoldsDB,numFolds,landmarkList,graphDict,landmarkList) 
 
-# print("Avg Result over Time");
+print("Avg Result over Time");
 indpVarDict = {'fitTech' : channelTypes}
 depVarDict = {'trainModel' : train_groups[0], 'locTech' : locationTypes[0], 'testSet' : test_groups[0]}
-# vosm_helper.AvgTimeGraph(allFoldsDB,numFolds,paramTypeDict,landmarkList,indpVarDict,depVarDict,landmarkList)
+vosm_helper.AvgTimeGraph(allFoldsDB,numFolds,paramTypeDict,landmarkList,indpVarDict,depVarDict,landmarkList)
 
-# indpVarDict = {'locTech' : locationTypes}
-# depVarDict = {'trainModel' : train_groups[0], 'fitTech' : channelTypes[0], 'testSet' : test_groups[0]}
-# vosm_helper.AvgTimeGraph(allFoldsDB,numFolds,paramTypeDict,landmarkList,indpVarDict,depVarDict,landmarkList)
+indpVarDict = {'locTech' : locationTypes}
+depVarDict = {'trainModel' : train_groups[0], 'fitTech' : channelTypes[0], 'testSet' : test_groups[0]}
+vosm_helper.AvgTimeGraph(allFoldsDB,numFolds,paramTypeDict,landmarkList,indpVarDict,depVarDict,landmarkList)
 
-# indpVarDict = {'fitTech' : channelTypes,'locTech' : locationTypes}
-# depVarDict = {'trainModel' : train_groups[0],  'testSet' : test_groups[0]}
-# vosm_helper.AvgTimeGraph(allFoldsDB,numFolds,paramTypeDict,landmarkList,indpVarDict,depVarDict,landmarkList)
+indpVarDict = {'fitTech' : channelTypes,'locTech' : locationTypes}
+depVarDict = {'trainModel' : train_groups[0],  'testSet' : test_groups[0]}
+vosm_helper.AvgTimeGraph(allFoldsDB,numFolds,paramTypeDict,landmarkList,indpVarDict,depVarDict,landmarkList)
 
 print("Completed crossValTest")
 #interactive debug handles
