@@ -45,6 +45,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		Performance1.psess = Performance1.psess
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "reporting", "reporting", "{5E4FFD07-3817-4BBC-886A-B46676D058B4}"
+	ProjectSection(SolutionItems) = preProject
+		reporting\bs_helper.py = reporting\bs_helper.py
+		reporting\crossValTest.py = reporting\crossValTest.py
+		reporting\vosm_helper.py = reporting\vosm_helper.py
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
