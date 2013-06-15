@@ -1,0 +1,65 @@
+General
+	Fixed numerous numeric type precision warnings through helper methods and static casts in VO_Common.h
+        static_cast<int>
+        static_cast<float>
+		safeDoubleToFloat
+		
+	Added VO_Fitting2DSM::DrawMeshInfo class to move the drawing of points on the image outside of the timed fitting process; which should improve the reported fitting time with large images while recording fitting results
+	
+	Moved boost::filesystem calls to a helper method in VO_Common.h, this provides the same functionality with less duplicated code and allows OS specific filesystem methods to improve performance if necessary.
+    
+test_smfitting
+    Changes
+        YAML Config file can be used to specify call of the command line arguments
+        Refactored fitting calls to reduce code duplication
+        Loaded pyramid levels and profile dimensions/directions from saved model files
+        
+	
+VO_FittingASMNDProfiles
+
+	Changes
+		Includes fittingTechnique specifier, an enum declared in VO_FittingASMNDProfiles.h
+		
+		VO_ASMNDProfileFitting - Added call to StagedPyramidFit to allow for different fitting techniques during fitting
+		
+		UpdateShape - Refactored to call FindBestOffset that selects the appropriate fitting technique.
+
+	New
+		VO_FindBestMatchingProfile2D - Checks 2 profiles per direction and chooses the profile with the smallest Mahalnobis distance.
+		
+		StagedPtramidFit - Chooses different techniques for different points in the pyramid fitting process (if applicable)
+		
+VO_RecognitionAlgs
+	Changes
+		CalcShapeFittingEffect - Per point distance calculations as 
+	New
+		SaveShapeResults - Improves SaveShapeRecogResults by calculating error per point and saving the given point placements, used for saving point updates after each iteration
+		
+		SaveFittingResults - More comprehensive SaveShapeResults that saves candidate locations and fitting time
+		
+VO_TextureModel.cpp
+	New
+		VO_CalcSubPixelTexture - Two channel texture calculation
+		
+VO_Profile
+	New
+		Set2DimProfile - Sets two channel mat with index
+		
+		Get2DProfileInMat4OneLandmark - Only supports 2 channel
+				
+	Changed
+		Get1DProfileInMat4OneLandmark - Full hybrid, dual channel support
+		
+		GetNDProfiles4OneLandmark - Special case for 2 channels
+
+VO_ASMNDProfies
+	Changed
+		VO_BuildASMNDProfiles - Two channels will produce 4 profiles
+		
+		VO_LoadProfileTrainingData - Takes an argument to control OpenCV imread functionality to load multi-channel images
+		
+VO_ASMLTCs
+	Changed
+		VO_HardSaveWaveletSingleChannelImage - prevented run from obvious bug in code, no functional solution.
+		
+		
