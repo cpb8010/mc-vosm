@@ -1,0 +1,21 @@
+# Matching command line arguments
+# -t ASM_PROFILEND -s true -r true -d 
+
+---
+version: VOSM 0.3.3
+verbose: No
+fitting:
+    # -t ASM_PROFILEND
+    method: ASM_PROFILEND
+    # -s true
+    static-images: Yes
+    # -r true
+    record: Yes
+    #list must the same length and order as the point annotations
+    techniques: [gray, gray, gray, gray, default, default, default, default, default, default, default, gray, gray, gray, gray, default]
+    
+annotation:
+    # -d JIAPEI
+    format: JIAPEI
+    
+    

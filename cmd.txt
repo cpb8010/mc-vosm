@@ -1,0 +1,1 @@
+C:/data/vosm-0.3.3/Debug/test_smfitting.exe -o "C:/data/CrossVerify/Set_0/Models/CR" -c depth -i "C:/data/CrossVerify/Set_0/Faces/Test/E_SADNESS" -a "C:/data/CrossVerify/Set_0/Faces/Test/E_SADNESS" -t ASM_PROFILEND -s true -r true -l min-max 
