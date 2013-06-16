@@ -173,9 +173,10 @@ def AvgTimeGraph(resultDB,numFolds,paramTypeDict,landmarkList,indpVarDict,depVar
             
     #Assuming at most 25 iterations recorded
     firstRun = True
+    errTimeArray = False
     for iterNum in range(25):
         for foldNum in range(numFolds):
-            print("iterQueryString",(iterQueryString % (foldNum)))
+            #print("iterQueryString",(iterQueryString % (foldNum)))
             dbc.execute(iterQueryString % foldNum,{'iterNum': iterNum})
             iterQueryList = dbc.fetchall()
             if(len(iterQueryList) == 0):
@@ -293,9 +294,10 @@ def AllPtsAvgTimeGraph(resultDB,numFolds,landmarkList,graphDict,ptNameList):
     errQueryString = "SELECT * FROM Set_%d.PtsErrors WHERE key=?"
         
     outerFirst = True
-    errTimeArray = False
     #hardcoded 25 because the max number of iterations isn't stored anywhere as a parameter yet
     for iterNum in range(25):
+        innerFirst = True
+        errTimeArray = False
         for foldNum in range(numFolds):
             dbc.execute(iterQueryString % foldNum,(graphDict['locTech'],graphDict['trainModel'],graphDict['fitTech'],graphDict['testSet'],iterNum))
             iterQueryList = dbc.fetchall()
@@ -304,10 +306,21 @@ def AllPtsAvgTimeGraph(resultDB,numFolds,landmarkList,graphDict,ptNameList):
                 print('Empty search query',iterNum,foldNum)
                 continue
             
-            errTimeArray = runErrQuery(dbc,iterQueryList,errQueryString % foldNum,first,errTimeArray)
-            first = False
+            errTimeArray = runErrQuery(dbc,errQueryString % foldNum,iterQueryList,landmarkList,keepPts,innerFirst,errTimeArray)
+            innerFirst = False
             
-    graphErrorTimeArray(errTimeArray,graphDict,ptNameList)
+        if(outerFirst):
+            outerFirst = False
+            errTimeArray3d = errTimeArray
+        else:
+            errTimeArray3d = numpy.dstack((errTimeArray3d,errTimeArray))
+        
+        
+    graphArray = numpy.mean(errTimeArray3d,axis=2,keepdims=True)
+    #expected shape is numIterations x ptNameList
+    assert(graphArray.shape[0] <= 25 and graphArray.shape[1] == len(ptNameList))
+            
+    graphErrorTimeArray(graphArray,graphDict,ptNameList)
     
     return True
     
