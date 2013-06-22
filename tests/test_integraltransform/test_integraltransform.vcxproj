@@ -46,12 +46,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>../../modules/integraltransform/include;%(AdditionalIncludeDirectories);C:\OpenCV2.4.5\opencv\build\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../../modules/integraltransform/include;%(AdditionalIncludeDirectories);$(OPENCV_DIR)\build\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>integraltransform.lib;opencv_core245d.lib;opencv_highgui245d.lib;opencv_imgproc245d.lib;opencv_video245d.lib;opencv_objdetect245d.lib;opencv_ml245d.lib;opencv_features2d245d.lib;opencv_calib3d245d.lib;opencv_legacy245d.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>../../Debug;C:\OpenCV2.4.5\opencv\build\x86\vc11\lib;C:\boost\boost_1_53_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../Debug;$(OPENCV_DIR)\build\x86\vc11\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <ProjectReference>
       <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>

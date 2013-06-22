@@ -46,12 +46,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\OpenCV2.4.5\opencv\build\include;../../modules/smfitting/include;../../modules/smbuilding/include;../../modules/featureextraction/include;../../modules/common/include;../../modules/comalgs/include;../../modules/cvcommon/include;../../modules/ensembletraining/include;../../modules/integraltransform/include;C:\boost\boost_1_53_0;C:\data\yaml-cpp-0.5.1\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCV_DIR)\build\include;../../modules/smfitting/include;../../modules/smbuilding/include;../../modules/featureextraction/include;../../modules/common/include;../../modules/comalgs/include;../../modules/cvcommon/include;../../modules/ensembletraining/include;../../modules/integraltransform/include;$(BOOST_ROOT);$(YAMLCPP_DIR)\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NOMINMAX;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../Debug;C:\OpenCV2.4.5\opencv\build\x86\vc11\lib;C:\boost\boost_1_53_0\stage\lib;C:\data\yaml-cpp-0.5.1\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../Debug;$(OPENCV_DIR)\build\x86\vc11\lib;$(BOOST_ROOT)\stage\lib;$(YAMLCPP_DIR)\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>common.lib;cvcommon.lib;smbuilding.lib;smfitting.lib;comalgs.lib;ensembletraining.lib;integraltransform.lib;featureextraction.lib;opencv_core245d.lib;opencv_highgui245d.lib;opencv_imgproc245d.lib;opencv_video245d.lib;opencv_objdetect245d.lib;opencv_ml245d.lib;opencv_features2d245d.lib;opencv_calib3d245d.lib;opencv_legacy245d.lib;libyaml-cppmdd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <ProjectReference>
@@ -102,6 +102,9 @@
     <ProjectReference Include="..\..\modules\smfitting\smfitting.vcxproj">
       <Project>{57706470-a0d4-455d-ab60-626eae943596}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="subset.yaml" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -861,13 +861,13 @@ int main(int argc, char **argv)
 
     CFaceDetectionAlgs fd;
     
-	//this static pathing is silly, should use cross-platform env var(OPENCV_PATH) expander.
-	fd.SetConfiguration("C:/OpenCV2.4.5/opencv/data/lbpcascades/lbpcascade_frontalface.xml", 
-						"C:/OpenCV2.4.5/opencv/data/haarcascades/haarcascade_profileface.xml",
-						"C:/OpenCV2.4.5/opencv/data/haarcascades/haarcascade_mcs_lefteye.xml",
-						"C:/OpenCV2.4.5/opencv/data/haarcascades/haarcascade_mcs_righteye.xml",
-						"C:/OpenCV2.4.5/opencv/data/haarcascades/haarcascade_mcs_nose.xml",
-						"C:/OpenCV2.4.5/opencv/data/haarcascades/haarcascade_mcs_mouth.xml",
+	std::string openCv_path(getenv("OPENCV_DIR"));
+	fd.SetConfiguration(openCv_path + "/data/lbpcascades/lbpcascade_frontalface.xml", 
+						openCv_path + "/data/haarcascades/haarcascade_profileface.xml",
+						openCv_path + "/data/haarcascades/haarcascade_mcs_lefteye.xml",
+						openCv_path + "/data/haarcascades/haarcascade_mcs_righteye.xml",
+						openCv_path + "/data/haarcascades/haarcascade_mcs_nose.xml",
+						openCv_path + "/data/haarcascades/haarcascade_mcs_mouth.xml",
 				        VO_AdditiveStrongerClassifier::BOOSTING,
 				        CFaceDetectionAlgs::FRONTAL );
 

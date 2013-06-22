@@ -46,12 +46,12 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>C:\OpenCV2.4.5\opencv\build\include;../../modules/smbuilding/include;../../modules/common/include;../../modules/featureextraction/include;../../modules/integraltransform/include;../../modules/cvcommon/include;C:\boost\boost_1_53_0;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(OPENCV_DIR)\build\include;../../modules/smbuilding/include;../../modules/common/include;../../modules/featureextraction/include;../../modules/integraltransform/include;../../modules/cvcommon/include;$(BOOST_ROOT);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NOMINMAX;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>../../Debug;C:\OpenCV2.4.5\opencv\build\x86\vc11\lib;C:\boost\boost_1_53_0\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>../../Debug;$(OPENCV_DIR)\build\x86\vc11\lib;$(BOOST_ROOT)\stage\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>common.lib;cvcommon.lib;smbuilding.lib;featureextraction.lib;integraltransform.lib;opencv_core245d.lib;opencv_imgproc245d.lib;opencv_highgui245d.lib;opencv_legacy245d.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
