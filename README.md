@@ -1,7 +1,14 @@
-mc-vosm
+# mc-vosm
 =======
 
 Multi-channel ASM enhancements to the [Visual Open Statistical Models project](http://www.visionopen.com/)
+
+## How to Use
+Clone this repository, install pre-requisite libraries, compile, and run.
+
+Due to the dynamic linking and requirement of OpenCV, static executables cannot be distributed.
+
+More help can be found on the [wiki](https://github.com/cpb8010/mc-vosm/wiki)
 
 ##Origin
 [VOSM 0.3.3](http://www.visionopen.com/downloads/open-source-software/VOSM/)
