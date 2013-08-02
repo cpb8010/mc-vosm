@@ -37,7 +37,7 @@ def buildQueryString(indpVarDict,depVarDict,whatString):
     
     return iterQueryString
     
-def runIndvErrQuery(dbc,iterQueryList,errQueryString,errTimeArray,indpVars,landmarkList,delPts,first):
+def runIndvErrQuery(dbc,iterQueryList,errQueryString,errTimeArray,indpVars,landmarkList,delPts):
             
     errDict = defaultdict(list)
     #Get individual face results and save average
@@ -71,7 +71,7 @@ def runIndvErrQuery(dbc,iterQueryList,errQueryString,errTimeArray,indpVars,landm
     
     numpyAvg = numpy.array(avgList)
 
-    if first:
+    if isinstance(errTimeArray,bool):
         errTimeArray = numpyAvg
     else:
         errTimeArray = numpy.vstack((errTimeArray,numpyAvg))
@@ -116,7 +116,6 @@ def avgTimeGraph(resultDB,paramTypeDict,landmarkList,indpVarDict,depVarDict,ptLi
     errQueryString = "SELECT * FROM PtsErrors WHERE key=:errTableKey"
     
     #Assuming at most 25 iterations recorded
-    firstRun = True
     errTimeArray = False
     for iterNum in range(25):
         #print("iterQueryString",iterQueryString)
@@ -128,8 +127,7 @@ def avgTimeGraph(resultDB,paramTypeDict,landmarkList,indpVarDict,depVarDict,ptLi
             print('Empty search query',iterNum)
             continue
             
-        errTimeArray = runIndvErrQuery(dbc,iterQueryList,errQueryString,errTimeArray,indpVars,landmarkList,delPts,firstRun)
-        firstRun = False
+        errTimeArray = runIndvErrQuery(dbc,iterQueryList,errQueryString,errTimeArray,indpVars,landmarkList,delPts)
         
     titleString = "Test variables: "
     for depVarKey in depVarDict:
@@ -172,29 +170,45 @@ def AvgTimeGraph(resultDB,numFolds,paramTypeDict,landmarkList,indpVarDict,depVar
     
             
     #Assuming at most 25 iterations recorded
-    firstRun = True
-    errTimeArray = False
+    errTimeArray3d = False
     for iterNum in range(25):
+        tempErrTimeArray = False
         for foldNum in range(numFolds):
             #print("iterQueryString",(iterQueryString % (foldNum)))
+            print("iterNum",iterNum,"foldNum",foldNum)
             dbc.execute(iterQueryString % foldNum,{'iterNum': iterNum})
             iterQueryList = dbc.fetchall()
             if(len(iterQueryList) == 0):
                 print('Empty search query',iterNum)
                 continue
             
-            errTimeArray = runIndvErrQuery(dbc,iterQueryList,errQueryString % foldNum,errTimeArray,indpVars,landmarkList,delPts,firstRun)
-            firstRun = False
-
+            tempErrTimeArray = runIndvErrQuery(dbc,iterQueryList,errQueryString % foldNum,tempErrTimeArray,indpVars,landmarkList,delPts)
+            print("tempErrTimeArray.shape",tempErrTimeArray.shape)
+        if isinstance(errTimeArray3d,bool):
+            errTimeArray3d = numpy.copy(tempErrTimeArray)
+        elif not isinstance(tempErrTimeArray,bool):
+            print("errTimeArray3d.shape",errTimeArray3d.shape)
+            print("tempErrTimeArray.shape",tempErrTimeArray.shape)
+            errTimeArray3d = numpy.dstack((errTimeArray3d, tempErrTimeArray))
+        print("errTimeArray3d.shape",errTimeArray3d.shape)  
+    
+    avgTimeArray = numpy.mean(errTimeArray3d,axis=0,keepdims=False)
+    avgTimeArray = numpy.transpose(avgTimeArray)
+    print("avgTimeArray.shape",avgTimeArray.shape)
+    stdTimeArray = numpy.std(errTimeArray3d,axis=0,keepdims=False)
+    stdTimeArray = numpy.transpose(stdTimeArray)
+    print("stdTimeArray.shape",stdTimeArray.shape)
+    
     titleString = "Test variables: "
     for depVarKey in depVarDict:
         titleString = titleString + depVarKey + "=" + depVarDict[depVarKey] + " "
         
-    graphErrorTimeArray(errTimeArray,titleString,indpVars)
+    graphErrorTimeArray(avgTimeArray,titleString,indpVars)
 
 
-def runErrQuery(dbc,errQueryString,iterQueryList,landmarkList,keepPts,first,errTimeArray):
-    innerFirst = True
+def runErrQuery(dbc,errQueryString,iterQueryList,landmarkList,keepPts,errTimeArray):
+
+    numpySum = False
     for errKey in iterQueryList:
         dbc.execute(errQueryString,errKey)
 
@@ -206,15 +220,14 @@ def runErrQuery(dbc,errQueryString,iterQueryList,landmarkList,keepPts,first,errT
             exit()
         singleError = [pt for ptIndex, pt in enumerate(singleError) if ptIndex in keepPts]
         
-        if innerFirst:
-            innerFirst = False
+        if isinstance(numpySum,bool):
             numpySum = numpy.array(singleError)
         else:
             numpySum = numpySum + numpy.array(singleError)
 
     numpyAvg = numpy.divide(numpySum,len(iterQueryList))
     #print("numpyAvg",numpyAvg)
-    if first:
+    if isinstance(errTimeArray,bool):
         errTimeArray = numpyAvg
     else:
         errTimeArray = numpy.vstack((errTimeArray,numpyAvg))
@@ -243,7 +256,6 @@ def allPtsAvgTimeGraph(resultDB,landmarkList,graphDict,ptNameList):
     #find points to keep in total
     keepPts = [ index for index, landmark in enumerate(landmarkList) if landmark in ptNameList] 
 
-    first = True
     errTimeArray = False
     #hardcoded 25 because the max number of iterations isn't stored anywhere as a parameter yet
     for iterNum in range(25):
@@ -254,8 +266,7 @@ def allPtsAvgTimeGraph(resultDB,landmarkList,graphDict,ptNameList):
             print('Empty search query',iterNum)
             continue
         
-        errTimeArray = runErrQuery(dbc,errQueryString,iterQueryList,landmarkList,keepPts,first,errTimeArray)
-        first = False
+        errTimeArray = runErrQuery(dbc,errQueryString,iterQueryList,landmarkList,keepPts,errTimeArray)
         
     titleString = "Test variables: " + graphDict['locTech'] + ", " + graphDict['trainModel'] + ", " + graphDict['fitTech'] + ", " + graphDict['testSet']
     graphErrorTimeArray(errTimeArray,titleString,ptNameList)
@@ -285,7 +296,6 @@ def AllPtsAvgTimeGraph(resultDB,numFolds,landmarkList,graphDict,ptNameList):
     if(numFolds == 0):
         return allPtsAvgTimeGraph(resultDB,landmarkList,graphDict,ptNameList)
         
-        
     dbc = resultDB.cursor()
     #find points to keep in total
     keepPts = [ index for index, landmark in enumerate(landmarkList) if landmark in ptNameList] 
@@ -293,10 +303,9 @@ def AllPtsAvgTimeGraph(resultDB,numFolds,landmarkList,graphDict,ptNameList):
     iterQueryString = "SELECT errPtsTableKey FROM Set_%d.InterIndvResults WHERE locTech=? AND trainModel=? AND fitTech=? AND testSet=? AND iterNum=?"
     errQueryString = "SELECT * FROM Set_%d.PtsErrors WHERE key=?"
         
-    outerFirst = True
+    errTimeArray3d = False
     #hardcoded 25 because the max number of iterations isn't stored anywhere as a parameter yet
     for iterNum in range(25):
-        innerFirst = True
         errTimeArray = False
         for foldNum in range(numFolds):
             dbc.execute(iterQueryString % foldNum,(graphDict['locTech'],graphDict['trainModel'],graphDict['fitTech'],graphDict['testSet'],iterNum))
@@ -306,19 +315,19 @@ def AllPtsAvgTimeGraph(resultDB,numFolds,landmarkList,graphDict,ptNameList):
                 print('Empty search query',iterNum,foldNum)
                 continue
             
-            errTimeArray = runErrQuery(dbc,errQueryString % foldNum,iterQueryList,landmarkList,keepPts,innerFirst,errTimeArray)
-            innerFirst = False
+            errTimeArray = runErrQuery(dbc,errQueryString % foldNum,iterQueryList,landmarkList,keepPts,errTimeArray)
             
-        if(outerFirst):
-            outerFirst = False
+        if isinstance(errTimeArray3d,bool):
             errTimeArray3d = errTimeArray
-        else:
-            errTimeArray3d = numpy.dstack((errTimeArray3d,errTimeArray))
+        elif not isinstance(errTimeArray,bool):
+            errTimeArray3d = numpy.dstack((errTimeArray3d,errTimeArray))        
         
-        
-    graphArray = numpy.mean(errTimeArray3d,axis=2,keepdims=True)
-    #expected shape is numIterations x ptNameList
+    graphArray = numpy.mean(errTimeArray3d,axis=0,keepdims=False)
+    graphArray = numpy.transpose(graphArray)
+    print("graphArray.shape",graphArray.shape)
+    #expected shape is ptNameList x numIterations
     assert(graphArray.shape[0] <= 25 and graphArray.shape[1] == len(ptNameList))
+    
             
     graphErrorTimeArray(graphArray,graphDict,ptNameList)
     
