@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>MC-VOSM by cpb8010</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>MC-VOSM</h1>
+        <h2>Multi-channel ASM enhancements to VOSM</h2>
+        <a href="https://github.com/cpb8010/mc-vosm" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <p>Multi-channel ASM enhancements to the <a href="http://www.visionopen.com/">Visual Open Statistical Models project</a>
+MC-VOSM also provides automated testing and graphing capabilities to augment VOSM's flexible AAM/ASM library.</p>
+
+<h2>
+<a name="how-to-use" class="anchor" href="#how-to-use"><span class="octicon octicon-link"></span></a>How to Use</h2>
+
+<ol>
+<li><a href="https://github.com/cpb8010/mc-vosm.git">Clone this repository</a></li>
+<li><a href="https://github.com/cpb8010/mc-vosm/wiki/Setup">Install and configure required libraries</a></li>
+<li>Download a sample face database (if you don't already have one) eg: <a href="http://visionopen.com/cv/databases/JIAPEI/">Jia Pei's</a><a href="http://personalpages.manchester.ac.uk/staff/timothy.f.cootes/data/talking_face/talking_face.html">FRANCK</a>
+</li>
+<li>Compile and run <a href="https://github.com/cpb8010/mc-vosm/wiki/Model-building-walkthrough">test_smbuilding</a> and <a href="https://github.com/cpb8010/mc-vosm/wiki/Fitting-walkthrough">test_smfitting</a> programs</li>
+<li>In Python, call <a href="https://github.com/cpb8010/mc-vosm/wiki/Testing-and-Graphing-Results">graphing functions</a> to display a summary of results</li>
+</ol><p>More help can be found on the <a href="https://github.com/cpb8010/mc-vosm/wiki">wiki</a></p>
+
+<h2>
+<a name="origin" class="anchor" href="#origin"><span class="octicon octicon-link"></span></a>Origin</h2>
+
+<p>Forked from <a href="http://www.visionopen.com/downloads/open-source-software/VOSM/">VOSM 0.3.3</a></p>
+
+<p>The core VOSM package implements multiple AAM and ASM techniques.
+It supports a few annotation formats and is designed for faces.</p>
+
+<h2>
+<a name="current-state" class="anchor" href="#current-state"><span class="octicon octicon-link"></span></a>Current state</h2>
+
+<p>MC-VOSM is a fork of VOSM that is independently maintained with a focus on Active Shape Model enhancements for color+depth image processing and improved result reporting.
+The multi-channel ASM techniques have been tested on the <a href="http://bosphorus.ee.boun.edu.tr/default.aspx">Bosphorus Facial Expression Database</a></p>
+
+<p>The results for the above data-set are published in an ICIP2013 paper </p>
+
+<h3>
+<a name="features" class="anchor" href="#features"><span class="octicon octicon-link"></span></a>Features</h3>
+
+<ul>
+<li>3 New multi-channel fitting techniques</li>
+<li>2 New initial shape placement techniques</li>
+<li>Automated cross validation testing</li>
+<li>Automated result collection and graph generation</li>
+<li>Support for Bosphorus depth images and annotation information</li>
+<li>Up to 3 image channels supported for building and fitting</li>
+</ul><h3>
+<a name="current-external-dependencies" class="anchor" href="#current-external-dependencies"><span class="octicon octicon-link"></span></a>Current external dependencies</h3>
+
+<p>Older versions of these libraries might work, but the versions listed have been verified
+C++ is for building VOSM; the ASM building and fitting programs
+Python is required for automating testing and graph generation</p>
+
+<ul>
+<li>C++
+
+<ul>
+<li>
+<a href="http://www.boost.org/">Boost v1.53</a>
+
+<ul>
+<li>Only uses boost::filesystem, so older versions work fine too</li>
+</ul>
+</li>
+<li>
+<a href="http://opencv.org/">OpenCV 2.4.5</a>
+
+<ul>
+<li>Requires 2.4 or newer because of Mat syntax changes</li>
+</ul>
+</li>
+<li><a href="http://code.google.com/p/yaml-cpp/">YAML-CPP 0.5.1</a></li>
+<li>
+<a href="http://www.microsoft.com/visualstudio/eng/downloads#d-2012-express"><em>Visual Studio 2012</em></a>
+
+<ul>
+<li>Windows only :( until CMake file are updated, other platforms remain untested</li>
+<li>All .sln and .vxproj were converted to vs2012 any may not be backwards compatible</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul><p>The most recent versions of the below are suggested</p>
+
+<ul>
+<li>
+<a href="http://www.python.org/download/">Python 2.7</a>
+
+<ul>
+<li><a href="http://matplotlib.org/downloads.html">Matplotlib</a></li>
+<li><a href="http://www.numpy.org/">NumPy</a></li>
+<li><a href="http://www.scipy.org/">SciPy</a></li>
+<li><a href="http://pandas.pydata.org/">Pandas</a></li>
+<li><a href="http://scikit-learn.org/stable/install.html">SciKit-Learn</a></li>
+</ul>
+</li>
+</ul><h1>
+<a name="expected-use-case" class="anchor" href="#expected-use-case"><span class="octicon octicon-link"></span></a>Expected Use Case</h1>
+
+<p>As a completely open source library, MC-VOSM can serve as a base for testing new ASM techniques or new face databases.
+Given a new database of faces with facial feature point information and a compiling version of mc-vosm, the following is necessary to fully test the new database or method with MC-VOSM:</p>
+
+<ol>
+<li>A <a href="https://github.com/cpb8010/mc-vosm/wiki/shape_info_example">shape-info file</a>, detailing how each facial feature point relates to its neighbors and relative to the face.</li>
+<li>A Python function to convert (if necessary) and sort images based on types or experimental parameters
+
+<ul>
+<li>The test python scripts expect a certain directory structure. See <a href="https://github.com/cpb8010/mc-vosm/wiki/Testing-and-Graphing-Results">the wiki page for details</a>
+</li>
+</ul>
+</li>
+<li>An optional C++ code path to implement a new ASM technique (if testing a new ASM technique)
+
+<ul>
+<li>An additional YAML parameter to enable/disable that code path</li>
+</ul>
+</li>
+<li>If annotation format is not supported, C++ code to read annotation file format into VOSM.
+
+<ul>
+<li>An additional YAML setting for the new annotation file format</li>
+</ul>
+</li>
+</ol><p>After these steps are completed, running <a href="https://github.com/cpb8010/mc-vosm/blob/master/reporting/crossValTest.py">crossValTest.py</a> will call your convert and sorting functions to create N(default 10) validation folds.
+The script will then automatically train all the necessary models and run all of the fitting tests.
+MC-VOSM will record the results as images and text files, which is then scraped into a database for graphing as part of the test script.
+The script will then plot the accuracy and efficiency results for each sorted group across all the validation folds.</p>
+
+<h4>
+<a name="additional-notes" class="anchor" href="#additional-notes"><span class="octicon octicon-link"></span></a>Additional notes</h4>
+
+<ul>
+<li>Real-time tracking is supported in the test program, but has not been tested or evaluated.</li>
+<li>The test_smfitting and test_smbuilding programs are examples for the VOSM library interface.</li>
+<li>AAM techniques are left unchanged from VOSM, but will use the same result reporting functions.
+
+<ul>
+<li>For questions about AAM techniques, check out the VOSM site; MC-VOSM only considers ASM for now.</li>
+</ul>
+</li>
+<li>More detailed changes from VOSM are listed <a href="VOSM_changelist.txt">here</a>
+</li>
+</ul><h3>
+<a name="about-the-author" class="anchor" href="#about-the-author"><span class="octicon octicon-link"></span></a>About the author</h3>
+
+<p>This work was created as part of my <a href="https://ritdml.rit.edu/bitstream/handle/1850/16094/CBellmoreThesis11-2012.pdf?sequence=1">master's thesis</a> at <a href="http://www.rit.edu/">R.I.T.</a> and I have permission from VOSM's primary author, Jia Pei, to publish my enhancements here.</p>
+
+<p>This work was done under the supervision of my adviser, <a href="http://www.ce.rit.edu/people/savakis/">Andreas Savakis</a>.</p>
+
+<p>I love talking about this work and trying new things, so please contact <a href="mailto:cpb8010@g.rit.edu">me</a> with any comments or questions!</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/cpb8010/mc-vosm/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/cpb8010/mc-vosm/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/cpb8010/mc-vosm"></a> is maintained by <a href="https://github.com/cpb8010">cpb8010</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+            <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-34067685-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
