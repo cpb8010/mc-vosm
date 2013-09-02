@@ -442,6 +442,7 @@ void PrintSummary(const int nb, const int detectionTimes, const Mat& nbOfIterati
     Scalar avgDev, stdDev;
     if(doEvaluation)
     {
+
 		cout << "Average Pt Distance = " << std::accumulate(ptsErrorAvg.begin(),ptsErrorAvg.end(),0.00)/detectionTimes << endl;
 
         cv::meanStdDev(deviations, avgDev, stdDev);
@@ -939,7 +940,7 @@ int main(int argc, char **argv)
 															fittingResults.test_points,
 															times(0,i));
 
-				ptsErrorAvg.push_back(std::accumulate(ptErrorPerPoint.begin(),ptErrorPerPoint.end(),0.0f));
+				ptsErrorAvg.push_back(std::accumulate(ptErrorPerPoint.begin(),ptErrorPerPoint.end(),0.0f)/ptErrorPerPoint.size());
 			}
 
 		} //end image fitting of loop
