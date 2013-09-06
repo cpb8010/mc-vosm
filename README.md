@@ -80,3 +80,7 @@ The script will then plot the accuracy and efficiency results for each sorted gr
 * AAM techniques are left unchanged from VOSM, but will use the same result reporting functions.
 * For help adding another database to VOSM's supported organization/formats, please file an issue and I'll be happy to assist you!
 * A detailed change list from VOSM 0.3.3 is [here](VOSM_changelist.txt)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/cpb8010/mc-vosm/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
