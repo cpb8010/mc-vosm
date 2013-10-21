@@ -7,6 +7,11 @@ This project can utilize the registered depth and color information from a Kinec
 ## How to Use
 Clone this repository, install prerequisite libraries, compile, and run.
 
+Cite this work:
+
+C. Bellmore, R. Ptucha, and A. Savakis, “Fusing of Depth and Color for an Improved Active Shape Model,” Proc. IEEE Int. Conf. Image Processing, (ICIP 2013), Melbourne Australia, 2013.
+
+
 More help can be found on the [wiki](https://github.com/cpb8010/mc-vosm/wiki)
 
 ##Origin
